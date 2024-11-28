@@ -1,0 +1,281 @@
+:root {
+    --bg-dark: #121212;
+    --bg-darker: #0a0a0a;
+    --accent-green: #4ade80;
+    --accent-blue: #60a5fa;
+    --accent-purple: #a855f7;
+    --text-light: #f4f4f4;
+    --text-gray: #a3a3a3;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all var(--transition-speed) ease;
+}
+
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(50px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        box-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-purple);
+    }
+    50% { 
+        box-shadow: 0 0 20px var(--accent-blue), 0 0 40px var(--accent-purple);
+    }
+}
+
+@keyframes subtleRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    background: linear-gradient(45deg, var(--bg-dark), var(--bg-darker));
+    background-size: 400% 400%;
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    animation: backgroundShift 15s ease infinite;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 1rem;
+}
+
+.container {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    position: relative;
+    padding: 3rem;
+    background: rgba(18, 18, 18, 0.7);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    transform-style: preserve-3d;
+    transform: rotateX(10deg);
+    transition: all 0.5s;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        rgba(96, 165, 250, 0.1), 
+        rgba(168, 85, 247, 0.1), 
+        rgba(74, 222, 128, 0.1)
+    );
+    animation: subtleRotate 20s linear infinite;
+    z-index: -1;
+}
+
+.container:hover {
+    transform: rotateX(0) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.profile-circle {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    animation: 
+        float 4s ease-in-out infinite,
+        glowPulse 3s ease-in-out infinite alternate;
+    border: 6px solid rgba(255,255,255,0.1);
+    transition: all 0.5s ease;
+}
+
+.profile-circle:hover {
+    transform: scale(1.05) rotate(3deg);
+}
+
+.profile-gradient {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple), var(--accent-green));
+    background-size: 300% 300%;
+    animation: 
+        pulse 3s ease-in-out infinite alternate,
+        backgroundShift 10s ease infinite;
+    opacity: 0.9;
+}
+
+.profile-image {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    background-image: url('https://via.placeholder.com/280');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    z-index: 10;
+    border: 5px solid rgba(255,255,255,0.2);
+    transition: transform 0.3s ease;
+}
+
+.name {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple), var(--accent-green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: 
+        backgroundShift 5s ease infinite,
+        slideIn 1s ease-out;
+    line-height: 1.2;
+}
+
+.subtitle {
+    color: var(--text-gray);
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    letter-spacing: 1.5px;
+    font-weight: 300;
+    animation: slideIn 1.2s ease-out;
+}
+
+.description {
+    color: var(--text-gray);
+    max-width: 700px;
+    margin: 0 auto 35px;
+    font-weight: 300;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    animation: slideIn 1.4s ease-out;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 35px;
+    animation: slideIn 1.6s ease-out;
+}
+
+.social-link {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 2rem;
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+    transition: width 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--accent-blue);
+    transform: scale(1.2) rotate(10deg);
+    opacity: 1;
+}
+
+.social-link:hover::before {
+    width: 100%;
+}
+
+.language-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgba(42, 42, 42, 0.8);
+    color: var(--accent-blue);
+    border: 2px solid rgba(96, 165, 250, 0.3);
+    padding: 12px 25px;
+    border-radius: 40px;
+    cursor: pointer;
+    backdrop-filter: blur(15px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s;
+    animation: slideIn 1.8s ease-out;
+}
+
+.language-toggle:hover {
+    background-color: rgba(58, 58, 58, 0.9);
+    transform: scale(1.1) rotate(5deg);
+    border-color: var(--accent-blue);
+}
+
+body.rtl {
+    direction: rtl;
+}
+
+@media (max-width: 768px) {
+    .name {
+        font-size: 2.8rem;
+    }
+    .subtitle {
+        font-size: 1.4rem;
+    }
+    .container {
+        margin: 20px;
+        padding: 1.5rem;
+    }
+    .social-links {
+        gap: 25px;
+    }
+}
+
+a:focus, button:focus {
+    outline: 3px solid var(--accent-blue);
+    outline-offset: 3px;
+}
